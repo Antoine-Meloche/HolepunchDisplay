@@ -18,9 +18,6 @@ import android.view.accessibility.AccessibilityEvent;
 
 import androidx.annotation.RequiresApi;
 
-import java.util.Objects;
-
-
 public class HPDisplay extends AccessibilityService {
 
     public View display;
@@ -73,7 +70,7 @@ public class HPDisplay extends AccessibilityService {
         this.pill.findViewById(R.id.description).setVisibility(View.GONE);
         this.display.setVisibility(View.GONE);
         this.display.findViewById(R.id.button).setClickable(false); // Don't allow display to be clicked, only pill (for now)
-        this.display.findViewById(R.id.icon2).setVisibility(View.GONE); // Don't show display right icon
+        this.display.findViewById(R.id.icon2).setVisibility(View.GONE); // Don't show display right
 
 
         // Initialize the different components
@@ -82,7 +79,7 @@ public class HPDisplay extends AccessibilityService {
 
         // Initialize the UI
         uiState = new UIState(this, UIState.DEFAULT_TITLE, UIState.DEFAULT_DESCRIPTION,
-                getDrawable(R.drawable.checkmark), UIState.ICON_BLANK, UIState.ICON_BLANK, UIState.SHAPE_NOCHANGE);
+                getDrawable(R.drawable.checkmark), UIState.ICON_BLANK, UIState.ICON_BLANK, UIState.SHAPE_NOCHANGE, UIState.ICON_BLANK, UIState.ICON_BLANK, UIState.ICON_BLANK);
 
         uiState.apply();
 
@@ -130,8 +127,10 @@ public class HPDisplay extends AccessibilityService {
 
         params2.x = x;
         params2.y = y2;
+        //params2.y = y;
         params2.width = w2;
         params2.height = o;
+        //params2.height = c;
 
         params1.gravity = Gravity.CENTER_HORIZONTAL | Gravity.TOP;
         params2.gravity = Gravity.CENTER_HORIZONTAL | Gravity.TOP;

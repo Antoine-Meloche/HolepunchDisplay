@@ -56,25 +56,27 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.reset).setOnClickListener(view -> {
             // Reset UI
             deletefrombar.setChecked(false);
-            x.setProgress(0);
+            x.setProgress(-40);
             x2.setProgress(0);
-            y.setProgress(5);
-            y2.setProgress(-220);
-            width.setProgress(319);
+            y.setProgress(31);
+            y2.setProgress(-218);
+            width.setProgress(150);
             width2.setProgress(1014);
-            c.setProgress(113);
-            o.setProgress(563);
+            c.setProgress(66);
+            o.setProgress(720);
 
             // Reset preferences
             editor.putBoolean("deletefrombar", false);
-            editor.putInt("x", 0);
+            editor.putInt("x", -40);
             editor.putInt("x2", 0);
-            editor.putInt("y", 5);
-            editor.putInt("y2", -220);
-            editor.putInt("width", 319);
+            editor.putInt("y", 31);
+            //editor.putInt("y2", -135);
+            editor.putInt("y2", -294);
+            editor.putInt("width", 150);
             editor.putInt("width2", 1014);
-            editor.putInt("heightclosed", 113);
-            editor.putInt("heightopen", 563);
+            editor.putInt("heightclosed", 66);
+            //editor.putInt("heightopen", 400);
+            editor.putInt("hegihtopen", 720);
             editor.apply();
 
         });

@@ -9,8 +9,8 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="120dp"
-        android:layout_height="38dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="@drawable/black_circle"
         android:elevation="-10dp"
         app:cornerRadius="1000dp"
@@ -24,14 +24,14 @@
 
     <Button
         android:id="@+id/icon"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:background="@drawable/black_circle"
         android:clickable="false"
         app:cornerRadius="1000dp"
         app:layout_constraintBottom_toBottomOf="@+id/button"
         app:layout_constraintEnd_toEndOf="@+id/button"
-        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintHorizontal_bias="0.07"
         app:layout_constraintStart_toStartOf="@+id/button"
         app:layout_constraintTop_toTopOf="@+id/button"
         tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
@@ -52,38 +52,91 @@
 
     <Button
         android:id="@+id/label"
-        android:layout_width="74dp"
+        android:layout_width="63dp"
         android:layout_height="25dp"
+        android:layout_marginEnd="1dp"
         android:background="@drawable/ic_edges_txt"
         android:clickable="false"
         android:text="Title"
-        android:textAlignment="viewStart"
+        android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="5sp"
         app:layout_constraintBottom_toBottomOf="@+id/button"
         app:layout_constraintEnd_toEndOf="@+id/button"
-        app:layout_constraintHorizontal_bias=".4"
+        app:layout_constraintHorizontal_bias="0.96"
         app:layout_constraintStart_toEndOf="@+id/icon"
         app:layout_constraintTop_toTopOf="@+id/button"
-        app:layout_constraintVertical_bias="0.26999998"
+        app:layout_constraintVertical_bias="0.3"
         tools:ignore="TouchTargetSizeCheck" />
 
     <Button
         android:id="@+id/description"
-        android:layout_width="74dp"
+        android:layout_width="63dp"
         android:layout_height="29dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="1dp"
         android:background="@drawable/ic_edges_txt"
         android:clickable="false"
         android:text="Description"
-        android:textAlignment="viewStart"
+        android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="3.5sp"
         app:layout_constraintBottom_toBottomOf="@+id/button"
         app:layout_constraintEnd_toEndOf="@+id/button"
-        app:layout_constraintHorizontal_bias=".4"
+        app:layout_constraintHorizontal_bias="0.833"
         app:layout_constraintStart_toEndOf="@+id/icon"
         app:layout_constraintTop_toTopOf="@+id/button"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_bias="0.736"
         tools:ignore="TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/midbtn"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/black_circle"
+        android:clickable="false"
+        android:scaleX=".1"
+        android:scaleY=".1"
+        app:cornerRadius="1000dp"
+        app:layout_constraintBottom_toBottomOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="@+id/button"
+        app:layout_constraintStart_toStartOf="@+id/button"
+        app:layout_constraintTop_toTopOf="@+id/button"
+        app:layout_constraintVertical_bias="0.25"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/leftbtn"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/black_circle"
+        android:clickable="false"
+        android:scaleX=".1"
+        android:scaleY=".1"
+        app:cornerRadius="1000dp"
+        app:layout_constraintBottom_toBottomOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="@+id/button"
+        app:layout_constraintStart_toStartOf="@+id/button"
+        app:layout_constraintTop_toTopOf="@+id/button"
+        app:layout_constraintVertical_bias="0.25"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/rightbtn"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="24dp"
+        android:background="@drawable/black_circle"
+        android:clickable="false"
+        android:scaleX=".1"
+        android:scaleY=".1"
+        app:cornerRadius="1000dp"
+        app:layout_constraintBottom_toBottomOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="@+id/button"
+        app:layout_constraintStart_toStartOf="@+id/button"
+        app:layout_constraintTop_toTopOf="@+id/button"
+        app:layout_constraintVertical_bias="0.25"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

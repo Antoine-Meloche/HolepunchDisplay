@@ -55,23 +55,33 @@ public class Gestures {
             float x = event.getX();
             float y = event.getY();
 
-            Button icon = this.display.findViewById(R.id.icon);
+            //Button icon = this.display.findViewById(R.id.icon);
+            //float distance = (float) Math.sqrt(Math.pow(x - (icon.getX() - 100), 2) + Math.pow(y - icon.getY(), 2));
 
-            float distance = (float) Math.sqrt(Math.pow(x - (icon.getX() - 100), 2) + Math.pow(y - icon.getY(), 2));
+            Button midbtn = this.display.findViewById(R.id.midbtn);
+            float middistance = (float) Math.sqrt(Math.pow(x - (midbtn.getX() + 150), 2) + Math.pow(y - (midbtn.getY() + 300), 2));
+
+            Button leftbtn = this.display.findViewById(R.id.leftbtn);
+            float leftdistance = (float) Math.sqrt(Math.pow(x - (leftbtn.getX() + 100), 2) + Math.pow(y - (leftbtn.getY() + 300), 2));
+
+            Button rightbtn = this.display.findViewById(R.id.rightbtn);
+            float rightdistance = (float) Math.sqrt(Math.pow(x - (rightbtn.getX() + 200), 2) + Math.pow(y - (rightbtn.getY() + 300), 2));
 
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
 
-                    // Detect if icon is clicked
-                    if (distance < 200f) {
-                        Log.v("event", "icon click");
+                    // Detect clicks
+                    float lmmin = Math.min(leftdistance, middistance);
+                    float tmin = Math.min(lmmin, rightdistance);
+                    if (tmin >= 100f) { break; }
+                    if (middistance == tmin) {
+                        Log.v("event", "midbtn click");
 
                         UIState uiState = ((HPDisplay) this.context).uiState;
                         if (mediaManager.checkMedia() && ((HPDisplay) this.context).notificationHandler.backedUpState == null) {
                             if (audioManager.isMusicActive()) {
 
                                 mediaManager.pause();
-                                uiState.icon = this.context.getDrawable(R.drawable.playbutton);
                                 uiState.apply();
 
                             } else {
@@ -100,6 +110,56 @@ public class Gestures {
                             ((HPDisplay) context).uiState.icon = context.getDrawable(R.drawable.checkmark);
                             ((HPDisplay) context).uiState.miniIcon = UIState.ICON_BLANK;
                             ((HPDisplay) context).uiState.miniIconRight = UIState.ICON_BLANK;
+                            ((HPDisplay) context).uiState.shape = UIState.SHAPE_NOCHANGE;
+                            ((HPDisplay) context).uiState.apply();
+                            ((HPDisplay) this.context).notificationHandler.backedUpState = null;
+
+                        }
+
+                        this.prevY = 0;
+                        return true;
+                    } else if (leftdistance == tmin) {
+                        Log.v("event", "leftbtn click");
+
+                        UIState uiState = ((HPDisplay) this.context).uiState;
+                        if (mediaManager.checkMedia() && ((HPDisplay) this.context).notificationHandler.backedUpState == null) {
+                            mediaManager.prev();
+                            uiState.apply();
+                        } else {
+                            // Clear the display
+                            ((HPDisplay) context).uiState.title = UIState.DEFAULT_TITLE;
+                            ((HPDisplay) context).uiState.description = UIState.DEFAULT_DESCRIPTION;
+                            ((HPDisplay) context).uiState.icon = context.getDrawable(R.drawable.checkmark);
+                            ((HPDisplay) context).uiState.miniIcon = UIState.ICON_BLANK;
+                            ((HPDisplay) context).uiState.miniIconRight = UIState.ICON_BLANK;
+                            ((HPDisplay) context).uiState.leftbtn = UIState.ICON_BLANK;
+                            ((HPDisplay) context).uiState.midbtn = UIState.ICON_BLANK;
+                            ((HPDisplay) context).uiState.rightbtn = UIState.ICON_BLANK;
+                            ((HPDisplay) context).uiState.shape = UIState.SHAPE_NOCHANGE;
+                            ((HPDisplay) context).uiState.apply();
+                            ((HPDisplay) this.context).notificationHandler.backedUpState = null;
+
+                        }
+
+                        this.prevY = 0;
+                        return true;
+                    } else if (rightdistance == tmin) {
+                        Log.v("event", "rightbtn click");
+
+                        UIState uiState = ((HPDisplay) this.context).uiState;
+                        if (mediaManager.checkMedia() && ((HPDisplay) this.context).notificationHandler.backedUpState == null) {
+                            mediaManager.next();
+                            uiState.apply();
+                        } else {
+                            // Clear the display
+                            ((HPDisplay) context).uiState.title = UIState.DEFAULT_TITLE;
+                            ((HPDisplay) context).uiState.description = UIState.DEFAULT_DESCRIPTION;
+                            ((HPDisplay) context).uiState.icon = context.getDrawable(R.drawable.checkmark);
+                            ((HPDisplay) context).uiState.miniIcon = UIState.ICON_BLANK;
+                            ((HPDisplay) context).uiState.miniIconRight = UIState.ICON_BLANK;
+                            ((HPDisplay) context).uiState.leftbtn = UIState.ICON_BLANK;
+                            ((HPDisplay) context).uiState.midbtn = UIState.ICON_BLANK;
+                            ((HPDisplay) context).uiState.rightbtn = UIState.ICON_BLANK;
                             ((HPDisplay) context).uiState.shape = UIState.SHAPE_NOCHANGE;
                             ((HPDisplay) context).uiState.apply();
                             ((HPDisplay) this.context).notificationHandler.backedUpState = null;

@@ -3,13 +3,15 @@ package com.ethanzone.hpdisplay;
 import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaMetadata;
 import android.media.session.MediaController;
 import android.media.session.MediaSessionManager;
 import android.view.KeyEvent;
+
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 
 public class MediaManager {
 
@@ -34,10 +36,15 @@ public class MediaManager {
                 uiState.description = getDescription();
                 if (audioManager.isMusicActive()) {
                     uiState.icon = getIcon();
+                    uiState.leftbtn = this.context.getDrawable(R.drawable.skip_prev);
+                    uiState.midbtn = this.context.getDrawable(R.drawable.pause);
+                    uiState.rightbtn = this.context.getDrawable(R.drawable.skip_next);
                 } else {
-                    uiState.icon = this.context.getDrawable(R.drawable.playbutton);
+                    //uiState.icon = this.context.getDrawable(R.drawable.playbutton);
+                    uiState.icon = getIcon();
+                    uiState.midbtn = this.context.getDrawable(R.drawable.playbutton);
                 }
-                uiState.miniIconRight = getIcon();
+                uiState.miniIcon = getIcon();
             } catch (NullPointerException e) {
                 e.printStackTrace();
                 uiState = ((HPDisplay) this.context).notificationHandler.backedUpState;
@@ -48,6 +55,10 @@ public class MediaManager {
             } catch (NullPointerException e) {
                 // Music was closed
             }
+        } else {
+            uiState.leftbtn = this.context.getDrawable(R.drawable.black_circle);
+            uiState.midbtn = this.context.getDrawable(R.drawable.black_circle);
+            uiState.rightbtn = this.context.getDrawable(R.drawable.black_circle);
         }
     }
 
@@ -64,7 +75,9 @@ public class MediaManager {
     }
 
     public Drawable getIcon() {
-        return new BitmapDrawable(context.getResources(), mediaController.getMetadata().getDescription().getIconBitmap());
+        RoundedBitmapDrawable sr_icon = RoundedBitmapDrawableFactory.create(context.getResources(), mediaController.getMetadata().getDescription().getIconBitmap());
+        sr_icon.setCircular(true);
+        return sr_icon;
     }
 
     public String getTitle() {
@@ -72,13 +85,8 @@ public class MediaManager {
     }
 
     public String getDescription() {
-        String album = this.mediaController.getMetadata().getString(MediaMetadata.METADATA_KEY_ALBUM);
         String artist = this.mediaController.getMetadata().getString(MediaMetadata.METADATA_KEY_ARTIST);
-        if (album != null && artist != null) {
-            return album + " - " + artist;
-        } else if (album != null) {
-            return album;
-        } else if (artist != null) {
+        if (artist != null) {
             return artist;
         } else {
             return "";
@@ -93,5 +101,15 @@ public class MediaManager {
     public void play() {
         audioManager.dispatchMediaKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_PLAY));
         audioManager.dispatchMediaKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_MEDIA_PLAY));
+    }
+
+    public void prev() {
+        audioManager.dispatchMediaKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_PREVIOUS));
+        audioManager.dispatchMediaKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_MEDIA_PREVIOUS));
+    }
+
+    public void next() {
+        audioManager.dispatchMediaKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_NEXT));
+        audioManager.dispatchMediaKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_MEDIA_NEXT));
     }
 }

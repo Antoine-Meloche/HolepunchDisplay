@@ -11,8 +11,6 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 
-import java.util.Objects;
-
 public class UIState {
 
     public String title;
@@ -21,6 +19,11 @@ public class UIState {
     public Drawable miniIcon;
     public Drawable miniIconRight;
     public int shape;
+
+    // Music controls
+    public Drawable leftbtn;
+    public Drawable midbtn;
+    public Drawable rightbtn;
 
     public Context context;
 
@@ -34,6 +37,9 @@ public class UIState {
     public static final int ID_BIG = 0;
     public static final int ID_SMALL_L = 1;
     public static final int ID_SMALL_R = 2;
+
+    // Size variables
+    public int heightclosed;
 
     public Drawable ICON_NOCHANGE(int icon_id) {
         switch (icon_id) {
@@ -51,7 +57,7 @@ public class UIState {
     public static final String DEFAULT_TITLE = "Nothing to display";
     public static final String DEFAULT_DESCRIPTION = "Check back later";
 
-    public UIState(Context context, String title, String description, Drawable icon, Drawable miniIcon, Drawable miniIconRight, int shape) {
+    public UIState(Context context, String title, String description, Drawable icon, Drawable miniIcon, Drawable miniIconRight, int shape, Drawable midbtn, Drawable leftbtn, Drawable rightbtn) {
         this.title = title;
         this.description = description;
         this.icon = icon;
@@ -60,6 +66,11 @@ public class UIState {
         this.shape = shape;
         this.context = context;
 
+        this.leftbtn = leftbtn;
+        this.midbtn = midbtn;
+        this.rightbtn = rightbtn;
+
+        this.heightclosed = new Utils(context).getSettingInt("heightclosed");
     }
 
 
@@ -84,6 +95,9 @@ public class UIState {
         ((TextView) display.findViewById(R.id.label)).setText(this.title);
         ((TextView) display.findViewById(R.id.description)).setText(this.description);
         display.findViewById(R.id.icon).setBackground(this.icon);
+        display.findViewById(R.id.leftbtn).setBackground(this.leftbtn);
+        display.findViewById(R.id.midbtn).setBackground(this.midbtn);
+        display.findViewById(R.id.rightbtn).setBackground(this.rightbtn);
         pill.findViewById(R.id.icon).setBackground(this.miniIcon);
         pill.findViewById(R.id.icon2).setBackground(this.miniIconRight);
 
@@ -159,18 +173,20 @@ public class UIState {
                     .setDuration(300);
 
             // Expand the window
+            //FIXME: scaling according to chosen values
+            //int scaling = new Utils(display.getContext()).getSettingInt("heightopen") / new Utils(display.getContext()).getSettingInt("heightclosed");
             display.animate()
                     .scaleX(3)
                     .scaleY(3)
-                    .translationY(100)
+                    .translationY(158)
                     .translationX(new Utils(display.getContext()).getSettingInt("x2"))
                     .setInterpolator(new AccelerateDecelerateInterpolator())
-                    .setDuration(800);
+                    .setDuration(500);
 
 
             // Prevent double-contracts
             Handler handler = new Handler();
-            handler.postDelayed(() -> this.expanding = false, 800);
+            handler.postDelayed(() -> this.expanding = false, 500);
         }
     }
 
@@ -200,12 +216,12 @@ public class UIState {
 
             // Shrink window
             display.animate()
-                    .scaleX(1f)
-                    .scaleY(1f)
+                    .scaleX(.65f)
+                    .scaleY(.54f)
                     .translationX(0)
                     .translationY(0)
                     .setInterpolator(new AccelerateDecelerateInterpolator())
-                    .setDuration(800);
+                    .setDuration(500);
 
             // Prevent double-contracts
             Handler handler = new Handler();
@@ -216,11 +232,11 @@ public class UIState {
 
                 // Hide the Display
                 pill.setVisibility(View.VISIBLE);
-                new Handler().postDelayed(() -> display.setVisibility(View.GONE), 5);
+                new Handler().postDelayed(() -> display.setVisibility(View.GONE), 1);
 
                 this.contracting = false;
 
-            }, 800);
+            }, 220);
         }
     }
 }
