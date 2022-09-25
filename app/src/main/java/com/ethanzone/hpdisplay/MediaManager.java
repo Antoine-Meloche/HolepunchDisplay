@@ -59,6 +59,7 @@ public class MediaManager {
             uiState.leftbtn = this.context.getDrawable(R.drawable.black_circle);
             uiState.midbtn = this.context.getDrawable(R.drawable.black_circle);
             uiState.rightbtn = this.context.getDrawable(R.drawable.black_circle);
+            uiState.apply();
         }
     }
 

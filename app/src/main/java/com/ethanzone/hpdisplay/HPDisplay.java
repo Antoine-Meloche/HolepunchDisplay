@@ -7,6 +7,7 @@ import android.accessibilityservice.AccessibilityService;
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Handler;
 import android.util.Log;
@@ -163,9 +164,7 @@ public class HPDisplay extends AccessibilityService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        // TODO: Make this work
-        /*
+        
         // Get the window orientation
         int orientation = getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -181,7 +180,6 @@ public class HPDisplay extends AccessibilityService {
                 display.setVisibility(View.GONE);
             }
         }
-        */
 
     }
 }
